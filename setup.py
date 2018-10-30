@@ -1,21 +1,27 @@
 import setuptools
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+REQUIREMENTS = [line for line in open('requirements.txt').read().split('\n') if line != '']
+
+VERSION = '1.0.0'
+AUTHOR = 'Ricardo Barbosa Filho'
+EMAIL = 'ricardob@dcc.ufmg.br'
 
 setuptools.setup(
     name="camera_discovery",
-    version="0.0.1",
-    author="Ricardo Barbosa Filho",
-    author_email="ricardob@dcc.ufmg.br",
-    description="A package to discover all onvif cameras on network",
-    long_description=long_description,
+    version=VERSION,
+    author=AUTHOR,
+    author_email=EMAIL,
+    description="A package to discover all onvif cameras on your network",
+    long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/sampleproject",
+    url="https://github.com/ricardobf/camera_discovery",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3",
+        'Natural Language :: English',
+        "Programming Language :: Python :: 3.6",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
+        'Operating System :: POSIX :: Linux',
     ],
+    python_requires='>=3.6',
+    install_requires=REQUIREMENTS,
 )
