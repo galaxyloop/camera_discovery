@@ -1,1 +1,1 @@
-name = "camera_discovery"
+name = "CameraDiscovery"
