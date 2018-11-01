@@ -16,7 +16,7 @@ def ws_discovery() -> List:
     lst = list()
     cmd = 'hostname -I'
     buf = subprocess.check_output(cmd, shell=True).decode('utf-8')
-    ip_scope = buf.split(".")[0] + '.' + buf.split('.')[1]
+    ip_scope = buf.split('.')[0] + '.' + buf.split('.')[1]
     wsd = WSDiscovery.WSDiscovery()
     wsd.start()
     ret = wsd.searchServices()
@@ -26,6 +26,7 @@ def ws_discovery() -> List:
         result = get_ip.find(ip_scope)
         if result > 0 and get_types.find('onvif') > 0:
             string_result = get_ip[result:result+13]
+            string_result = string_result.split('/')[0]
             lst.append(string_result)
     wsd.stop()
     lst.sort()
