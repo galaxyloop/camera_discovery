@@ -1,7 +1,7 @@
 """This module is used to get the ip and the information related to
 each camera on the same network."""
 
-__version__ = '1.0.6'
+__version__ = '1.0.7'
 
 
 import subprocess
@@ -125,7 +125,7 @@ class CameraONVIF:
         request = self.camera_media.create_type('GetVideoEncoderConfigurationOptions')
         request.ProfileToken = self.camera_media_profile.token
         config = self.camera_media.GetVideoEncoderConfigurationOptions(request)
-        return [(resolution.Width, resolution.Height) for resolution in config.H264.ResolutionsAvailable]
+        return [(res.Width, res.Height) for res in config.H264.ResolutionsAvailable]
 
     def get_frame_rate_range(self) -> int:
         """Find the frame rate range of camera.
