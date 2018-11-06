@@ -1,7 +1,7 @@
 """This module is used to get the ip and the information related to
 each camera on the same network."""
 
-__version__ = '1.0.9'
+__version__ = '1.0.10'
 
 
 import subprocess
@@ -11,27 +11,28 @@ import WSDiscovery
 from onvif import ONVIFCamera
 
 
-def ws_discovery() -> List:
+def ws_discovery(scope = None) -> List:
     """Discover cameras on network using onvif discovery.
 
     Returns:
         List: List of ips found in network.
     """
     lst = list()
-    cmd = 'hostname -I'
-    buf = subprocess.check_output(cmd, shell=True).decode('utf-8')
-    ip_scope = buf.split('.')[0] + '.' + buf.split('.')[1]
+    if(scope == None):
+        cmd = 'hostname -I'
+        scope = subprocess.check_output(cmd, shell=True).decode('utf-8')
     wsd = WSDiscovery.WSDiscovery()
     wsd.start()
     ret = wsd.searchServices()
     for service in ret:
         get_ip = str(service.getXAddrs())
         get_types = str(service.getTypes())
-        result = get_ip.find(ip_scope)
-        if result > 0 and get_types.find('onvif') > 0:
-            string_result = get_ip[result:result+13]
-            string_result = string_result.split('/')[0]
-            lst.append(string_result)
+        for ip_scope in scope.split('  '):
+            result = get_ip.find(ip_scope.split('.')[0] + '.' + ip_scope.split('.')[1])
+            if result > 0 and get_types.find('onvif') > 0:
+                string_result = get_ip[result:result+13]
+                string_result = string_result.split('/')[0]
+                lst.append(string_result)
     wsd.stop()
     lst.sort()
     return lst
