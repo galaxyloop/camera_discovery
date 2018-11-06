@@ -12,5 +12,7 @@ from camera_discovery import CameraDiscovery
 CameraDiscovery.ws_discovery()
 ````
 To execute the comand that shows information about the cameras:
+````
 from camera_discovery import CameraONVIF
 Class = CameraONVIF(camera_ip, user, password)
+````

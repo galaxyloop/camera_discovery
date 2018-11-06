@@ -1,7 +1,7 @@
 """This module is used to get the ip and the information related to
 each camera on the same network."""
 
-__version__ = '1.0.8'
+__version__ = '1.0.9'
 
 
 import subprocess
