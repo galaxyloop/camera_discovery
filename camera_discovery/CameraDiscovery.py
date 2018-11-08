@@ -1,7 +1,7 @@
 """This module is used to get the ip and the information related to
 each camera on the same network."""
 
-__version__ = '1.0.10'
+__version__ = '1.0.11'
 
 
 import subprocess
@@ -27,7 +27,7 @@ def ws_discovery(scope = None) -> List:
     for service in ret:
         get_ip = str(service.getXAddrs())
         get_types = str(service.getTypes())
-        for ip_scope in scope.split('  '):
+        for ip_scope in scope.split():
             result = get_ip.find(ip_scope.split('.')[0] + '.' + ip_scope.split('.')[1])
             if result > 0 and get_types.find('onvif') > 0:
                 string_result = get_ip[result:result+13]
